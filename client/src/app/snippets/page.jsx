@@ -22,8 +22,12 @@ const SnippetsPage = () => {
                 console.log(response);
                 setSnippets(response.data);
             } catch (error) {
-                console.log(error);
-                router.push('/login');
+                if (error.message === "Network Error") {
+                    console.log("Network!!");
+                    throw new Error(error);
+                } else {
+                    router.push('/login');
+                }
             }
         }
         fetch();
@@ -34,7 +38,7 @@ const SnippetsPage = () => {
         const endpoint = process.env.NEXT_PUBLIC_API + `/snippets/${url}/`;
         console.log(endpoint);
         try {
-            const response = await axios.delete(endpoint,{
+            const response = await axios.delete(endpoint, {
                 withCredentials: true,
             });
             console.log(response);
@@ -74,8 +78,8 @@ const SnippetsPage = () => {
                                 </span>
                                 {time}
                             </p>
-                            <button 
-                            onClick={()=>handleDelete(unique_address)} className="underline text-red-900">Delete Snippet</button>
+                            <button
+                                onClick={() => handleDelete(unique_address)} className="underline text-red-900">Delete Snippet</button>
                         </div>
                     );
                 })}

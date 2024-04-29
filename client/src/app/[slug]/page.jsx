@@ -38,7 +38,8 @@ const SigleSnippet = ({ params }) => {
                 setSnippet(response.data);
                 console.log(response);
             } catch (error) {
-                console.log(error);
+                throw new Error(error)
+                // console.log(error);
             }
         }
         fetch();
