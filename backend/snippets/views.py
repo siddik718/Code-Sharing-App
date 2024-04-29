@@ -41,22 +41,34 @@ def SnippetDetailView(req, str):
     client = req.headers.get('Origin') if req.headers.get('Origin') else BASE_SNIPPETS_URL 
     print("Client Host : " , client)
 
+
     try:
         snippet = Snippet.objects.filter(unique_address=str).first()
     except Snippet.DoesNotExist:
         return Response(status=HTTP_404_NOT_FOUND)
     
+    user = authenticate_request(req)
+    
+    # print(snippet)
+    # print(user)
+    # print(snippet.owner)
+    # print(user.id)
+
+    isOwner = False
+    if user and user == snippet.owner:
+        isOwner = True
+
     if req.method == 'GET':
         return Response({
             "title": snippet.title,
             "code": snippet.code,
             "language": snippet.language,
-            "url": f"{client}/{snippet.unique_address}"
+            "url": f"{client}/{snippet.unique_address}",
+            "isOwner": isOwner
         })
     
 
 
-    user = authenticate_request(req)
     if not user:
         return Response({'message': 'Unauthorized'}, status=HTTP_401_UNAUTHORIZED)
 
