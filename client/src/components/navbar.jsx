@@ -1,12 +1,14 @@
+"use client";
+
+import RootContext from '@/contexts/RootContext';
 import Link from 'next/link';
-import React from 'react'
-import { cookies } from 'next/headers'
+import React, { useContext } from 'react'
 
 const Navbar = () => {
 
-    const cookieStore = cookies()
-    const token = cookieStore.get('access');
-    // console.log("Token : ", token);
+    const { key } = useContext(RootContext);
+
+    // console.log("Navbar Key : ", key);
 
     return (
         <div className='bg-blue-300'>
@@ -29,7 +31,7 @@ const Navbar = () => {
 
                 <div className='ml-auto'>
                     <ul className='flex gap-6'>
-                        {token ?
+                        {key ?
                             <li className='hover:border-b hover:border-red-600'>
                                 <Link href='/logout'>
                                     Logout

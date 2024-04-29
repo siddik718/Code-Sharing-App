@@ -3,9 +3,10 @@
 import Button from "@/components/Btn";
 import Input from "@/components/CustomInput";
 import Password from "@/components/password";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import RootContext from "@/contexts/RootContext";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -14,6 +15,7 @@ const LoginPage = () => {
         password: "admin123"
     });
     const [error, setError] = useState([])
+    const { setKey } = useContext(RootContext);
 
     const handleChange = event => {
         const { name, value } = event.target;
@@ -34,7 +36,9 @@ const LoginPage = () => {
             // console.log(typeof token);
             if (token) {
                 localStorage.setItem("token", token);
+                setKey(token);
             }
+
             router.push('/');
         } catch (error) {
             // console.log(error);

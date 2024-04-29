@@ -3,9 +3,12 @@
 
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useContext } from "react";
+import RootContext from "@/contexts/RootContext";
 
 const LogoutPage = () => {
     const router = useRouter();
+    const { setKey } = useContext(RootContext);
 
     const handleLogout = async () => {
         try {
@@ -14,6 +17,7 @@ const LogoutPage = () => {
                 withCredentials: true
             });
             localStorage.removeItem("token");
+            setKey("");
             router.push('/');
         } catch (error) {
             console.log(error);
