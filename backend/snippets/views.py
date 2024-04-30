@@ -87,6 +87,7 @@ def SnippetDetailView(req, str):
         return Response(status=HTTP_204_NO_CONTENT)
 
 def authenticate_request(request):
+    print("Cookies : ", request.COOKIES);
     token = request.COOKIES.get('access')
     print("Token : ", token)
     if not token:
