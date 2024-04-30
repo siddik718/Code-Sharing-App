@@ -17,7 +17,9 @@ def TestAPI(req):
 
 @api_view(['GET', 'POST'])
 def SnippetView(req):
+
     user = authenticate_request(req)
+
     if not user:
         return Response({'message': 'Unauthorized'}, status=HTTP_401_UNAUTHORIZED)
     
@@ -86,6 +88,7 @@ def SnippetDetailView(req, str):
 
 def authenticate_request(request):
     token = request.COOKIES.get('access')
+    print("Token : ", token)
     if not token:
         return None
     try:
