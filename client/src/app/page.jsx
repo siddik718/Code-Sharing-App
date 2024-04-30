@@ -1,10 +1,11 @@
 "use client";
 
 import Button from "@/components/Btn";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios from "@/lib/base";
 import Input from "@/components/CustomInput";
+import RootContext from "@/contexts/RootContext";
 
 export default function Home() {
 
@@ -14,6 +15,7 @@ export default function Home() {
     code: "",
     language: "C++",
   });
+  const { key } = useContext(RootContext);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -35,10 +37,7 @@ export default function Home() {
     }
 
     try {
-      const endpoint = process.env.NEXT_PUBLIC_API + '/snippets/';
-      const response = await axios.post(endpoint, data, {
-        withCredentials: true
-      });
+      const response = await axios.post('/snippets/', data);
       setData({
         title: "My Code Snippets",
         code: "",

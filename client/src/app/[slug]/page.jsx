@@ -2,7 +2,7 @@
 
 import Button from "@/components/Btn";
 import Input from "@/components/CustomInput";
-import axios from "axios";
+import axios from "@/lib/base";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -31,10 +31,7 @@ const SigleSnippet = ({ params }) => {
         const fetch = async () => {
 
             try {
-                const endpoint = process.env.NEXT_PUBLIC_API + `/snippets/${slug}/`;
-                const response = await axios.get(endpoint, {
-                    withCredentials: true,
-                });
+                const response = await axios.get(`/snippets/${slug}/`);
                 setSnippet(response.data);
                 console.log(response);
             } catch (error) {
@@ -49,12 +46,8 @@ const SigleSnippet = ({ params }) => {
     
     const handleUpdate = async (id) => {
         const path = window.location.pathname;
-        const endpoint = process.env.NEXT_PUBLIC_API + "/snippets" + path + '/';
-
         try {
-            const response = await axios.put(endpoint,snippet,{
-                withCredentials: true,
-            });
+            const response = await axios.put(`/snippets${path}/`,snippet);
             console.log(response);
         } catch (error) {
             console.log(error);

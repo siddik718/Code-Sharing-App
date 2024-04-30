@@ -2,7 +2,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios from "@/lib/base";
 import { useContext } from "react";
 import RootContext from "@/contexts/RootContext";
 
@@ -12,10 +12,7 @@ const LogoutPage = () => {
 
     const handleLogout = async () => {
         try {
-            const endpoint = process.env.NEXT_PUBLIC_API + '/users/logout/';
-            await axios.post(endpoint, {}, {
-                withCredentials: true
-            });
+            await axios.post('/users/logout/',{});
             localStorage.removeItem("token");
             setKey("");
             router.push('/');

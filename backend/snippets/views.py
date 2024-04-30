@@ -88,8 +88,14 @@ def SnippetDetailView(req, str):
 
 def authenticate_request(request):
     print("HEADERS : ", request.headers)
-    print("Cookies : ", request.COOKIES);
+    print("Cookies : ", request.COOKIES)
+
+    print("Authorization: ", request.headers.get('Authorization'))
+    print("Cookies in header: ", request.headers.get('Cookie'))
+
+
     token = request.COOKIES.get('access')
+    
     print("Token : ", token)
     if not token:
         return None

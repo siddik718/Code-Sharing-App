@@ -1,23 +1,21 @@
 "use client";
 
-import axios from "axios";
+import RootContext from "@/contexts/RootContext";
+import axios from "@/lib/base";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 
 const SnippetsPage = () => {
 
     const [snippets, setSnippets] = useState([]);
-
+    const { key } = useContext(RootContext);
     const router = useRouter();
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                const endpont = process.env.NEXT_PUBLIC_API + '/snippets/';
-                const response = await axios.get(endpont, {
-                    withCredentials: true
-                });
+                const response = await axios.get('/snippets');
                 console.log(response);
                 setSnippets(response.data);
             } catch (error) {
@@ -33,13 +31,8 @@ const SnippetsPage = () => {
     }, []);
 
     const handleDelete = async (url) => {
-        console.log(url);
-        const endpoint = process.env.NEXT_PUBLIC_API + `/snippets/${url}/`;
-        console.log(endpoint);
         try {
-            const response = await axios.delete(endpoint, {
-                withCredentials: true,
-            });
+            const response = await axios.delete(`/snippets/${url}/`);
             console.log(response);
             location.reload();
         } catch (error) {

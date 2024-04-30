@@ -4,7 +4,7 @@ import Input from "@/components/CustomInput";
 import Button from "@/components/Btn";
 import Password from "@/components/password";
 import { useState } from "react";
-import axios from "axios";
+import axios from "@/lib/base";
 import { useRouter } from 'next/navigation'
 
 
@@ -31,14 +31,9 @@ const SignupPage = () => {
     const handleSubmit = async event => {
         event.preventDefault();
         try {
-            const endpoint = process.env.NEXT_PUBLIC_API + '/users/register/';
-            console.log(endpoint);
-            const response = await axios.post(endpoint, data, {
-                withCredentials: true
-            })
+            const response = await axios.post('/users/register/', data)
             console.log(response);
             router.push('/login')
-
         } catch (error) {
             const data = error?.response?.data;
             if(data) {

@@ -4,7 +4,7 @@ import Button from "@/components/Btn";
 import Input from "@/components/CustomInput";
 import Password from "@/components/password";
 import { useContext, useState } from "react";
-import axios from "axios";
+import axios from "@/lib/base";
 import { useRouter } from "next/navigation";
 import RootContext from "@/contexts/RootContext";
 
@@ -28,11 +28,9 @@ const LoginPage = () => {
     const handleSubmit = async event => {
         event.preventDefault();
         try {
-            const endpoint = process.env.NEXT_PUBLIC_API + '/users/login/';
-            const response = await axios.post(endpoint, data, {
-                withCredentials: true
-            })
+            const response = await axios.post('/users/login/', data)
             const token = response?.data?.access_key;
+            console.log(response);
             // console.log(typeof token);
             if (token) {
                 localStorage.setItem("token", token);
