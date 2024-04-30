@@ -53,9 +53,18 @@ def LoginView(req):
     token = jwt.encode(payload, JWT_SECRET_KEY)
     response = Response()
     response.data = {"access_key": token}
-    response.set_cookie(key="test", value='test', secure=True, httponly=False)
-    response.set_cookie(key='access', value=token, httponly=True)
+    
+    expire_date = datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
+    max_age = 60 * 60 
+
+
+    response.set_cookie(key="test", value='test', expires=expire_date, max_age=max_age, secure=req.is_secure(), httponly=False)
+
+    response.set_cookie(key='access', value=token, expires=expire_date, max_age=max_age, httponly=True, secure=req.is_secure())
+
     return response
+
+
 
 @api_view(['POST'])
 def logoutView(req):
