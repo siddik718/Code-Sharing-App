@@ -62,6 +62,7 @@ def LoginView(req):
     response.set_cookie(key='access', value=token, expires=cookies_expire_date, secure=cookies_secure, httponly=True)
 
     return response
+
     
     
 
