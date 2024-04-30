@@ -52,8 +52,8 @@ def SnippetDetailView(req, str):
     user = authenticate_request(req)
     
     # print(snippet)
-    # print(user)
-    # print(snippet.owner)
+    print(user)
+    print(snippet.owner)
     # print(user.id)
 
     isOwner = False
@@ -87,16 +87,14 @@ def SnippetDetailView(req, str):
         return Response(status=HTTP_204_NO_CONTENT)
 
 def authenticate_request(request):
-    print("HEADERS : ", request.headers)
-    print("Cookies : ", request.COOKIES)
-
-    print("Authorization: ", request.headers.get('Authorization'))
-    print("Cookies in header: ", request.headers.get('Cookie'))
-
-
-    token = request.COOKIES.get('access')
+    
+    try:
+        token = request.COOKIES.get('access') or request.headers.get('Authorization').split(" ")[1] 
+    except: 
+        token = None
     
     print("Token : ", token)
+
     if not token:
         return None
     try:

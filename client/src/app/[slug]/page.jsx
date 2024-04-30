@@ -33,7 +33,11 @@ const SigleSnippet = ({ params }) => {
         const fetch = async () => {
 
             try {
-                const response = await axios.get(`/snippets/${slug}/`);
+                const response = await axios.get(`/snippets/${slug}/`,{
+                    headers: {
+                        Authorization: `Bearer ${key}`,
+                    }
+                });
                 setSnippet(response.data);
                 console.log(response);
             } catch (error) {
