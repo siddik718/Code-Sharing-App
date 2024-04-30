@@ -80,7 +80,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = os.environ.get('TRUSTED_ORIGINS').split(" ")
-
+print("T Host : ",CSRF_TRUSTED_ORIGINS)
 
 ROOT_URLCONF = 'root_app.urls'
 
