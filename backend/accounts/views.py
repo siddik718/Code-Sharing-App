@@ -53,7 +53,7 @@ def LoginView(req):
     token = jwt.encode(payload, JWT_SECRET_KEY)
     response = Response()
     response.data = {"access_key": token}
-    response.set_cookie(key="test", value='test', secure=True, httponly=True)
+    response.set_cookie(key="test", value='test', secure=True, httponly=False)
     response.set_cookie(key='access', value=token, httponly=True)
     return response
 
