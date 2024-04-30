@@ -54,15 +54,16 @@ def LoginView(req):
     response = Response()
     response.data = {"access_key": token}
     
-    expire_date = datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
-    max_age = 60 * 60 
+    cookies_expire_date = datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
+    cookies_secure =  req.is_secure()
 
-
-    response.set_cookie(key="test", value='test', expires=expire_date, max_age=max_age, secure=req.is_secure(), httponly=False)
-
-    response.set_cookie(key='access', value=token, expires=expire_date, max_age=max_age, httponly=True, secure=req.is_secure())
+    response.set_cookie(key="test", value='test', expires=cookies_expire_date, secure=cookies_secure, httponly=True)
+    
+    response.set_cookie(key='access', value=token, expires=cookies_expire_date, secure=cookies_secure, httponly=True)
 
     return response
+    
+    
 
 
 
