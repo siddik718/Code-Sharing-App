@@ -53,13 +53,14 @@ def LoginView(req):
     token = jwt.encode(payload, JWT_SECRET_KEY)
     response = Response()
     response.data = {"access_key": token}
-    
+
+
     cookies_expire_date = datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
     cookies_secure =  req.is_secure()
 
-    response.set_cookie(key="test", value='test', expires=cookies_expire_date, secure=cookies_secure, httponly=True)
+    response.set_cookie(key="test", value='test', expires=cookies_expire_date, secure=cookies_secure, httponly=True,samesite="Lax")
     
-    response.set_cookie(key='access', value=token, expires=cookies_expire_date, secure=cookies_secure, httponly=True)
+    response.set_cookie(key='access', value=token, expires=cookies_expire_date, secure=cookies_secure, httponly=True,samesite="Lax")
 
     return response
 

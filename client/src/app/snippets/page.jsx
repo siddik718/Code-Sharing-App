@@ -16,8 +16,7 @@ const SnippetsPage = () => {
             try {
                 const endpont = process.env.NEXT_PUBLIC_API + '/snippets/';
                 const response = await axios.get(endpont, {
-                    withCredentials: true,
-                    withXSRFToken: true,
+                    withCredentials: true
                 });
                 console.log(response);
                 setSnippets(response.data);
