@@ -32,7 +32,7 @@ const SnippetsPage = () => {
             }
         }
         fetch();
-    }, []);
+    }, [key]);
 
     const handleDelete = async (url) => {
         try {

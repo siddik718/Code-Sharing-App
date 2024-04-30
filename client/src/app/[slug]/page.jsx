@@ -47,7 +47,7 @@ const SigleSnippet = ({ params }) => {
         }
         fetch();
 
-    }, [slug]);
+    }, [slug,key]);
 
     
     const handleUpdate = async (id) => {
