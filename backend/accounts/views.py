@@ -46,7 +46,7 @@ def LoginView(req):
     payload = {
         'id': user.id,
         'username': user.username,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
         "iat": datetime.datetime.utcnow(),
     }
 
