@@ -15,7 +15,11 @@ const SnippetsPage = () => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const response = await axios.get('/snippets');
+                const response = await axios.get('/snippets',{
+                    headers: {
+                        Authorization: `Bearer ${key}`,
+                    }
+                });
                 console.log(response);
                 setSnippets(response.data);
             } catch (error) {
@@ -32,7 +36,11 @@ const SnippetsPage = () => {
 
     const handleDelete = async (url) => {
         try {
-            const response = await axios.delete(`/snippets/${url}/`);
+            const response = await axios.delete(`/snippets/${url}/`,{
+                headers: {
+                    Authorization: `Bearer ${key}`,
+                }
+            });
             console.log(response);
             location.reload();
         } catch (error) {

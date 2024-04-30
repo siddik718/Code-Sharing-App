@@ -37,7 +37,11 @@ export default function Home() {
     }
 
     try {
-      const response = await axios.post('/snippets/', data);
+      const response = await axios.post('/snippets/', data, {
+        headers: {
+          Authorization: `Bearer ${key}`,
+        }
+      });
       setData({
         title: "My Code Snippets",
         code: "",

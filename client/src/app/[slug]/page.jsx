@@ -2,13 +2,15 @@
 
 import Button from "@/components/Btn";
 import Input from "@/components/CustomInput";
+import RootContext from "@/contexts/RootContext";
 import axios from "@/lib/base";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 
 const SigleSnippet = ({ params }) => {
     const { slug } = params;
+    const { key } = useContext(RootContext);
 
     const [snippet, setSnippet] = useState({
         code: "",
@@ -47,7 +49,11 @@ const SigleSnippet = ({ params }) => {
     const handleUpdate = async (id) => {
         const path = window.location.pathname;
         try {
-            const response = await axios.put(`/snippets${path}/`,snippet);
+            const response = await axios.put(`/snippets${path}/`,snippet,{
+                headers: {
+                    Authorization: `Bearer ${key}`,
+                }
+            });
             console.log(response);
         } catch (error) {
             console.log(error);
